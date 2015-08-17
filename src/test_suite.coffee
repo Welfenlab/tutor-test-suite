@@ -3,18 +3,17 @@
 module.exports =
   # Gets the names of all tests
   extractTestNames: (allTests, registerTest) ->
-    prepare: (code, runner) ->
+    prepare: (code, runner, elem) ->
       tests = []
-      runner.run code, [process: ((code) -> """
+      runner.run """
         var it = function(name, fn) {
           application.remote.registerTest(name);
         };
         #{code}
         application.remote.finished();
-        """)],
-
-        registerTest: (name) -> tests.push name; registerTest? name
-        finished: -> allTests? tests
+        """, 
+        registerTest: (name) -> tests.push name; registerTest? name, elem
+        finished: -> allTests? tests, elem
       return code
 
   # Defines the tests via it
@@ -35,11 +34,11 @@ module.exports =
       })();
       #{code}
       """
-    api: ->
+    api: (code, runner, elem)->
       passed = 0
       failed = 0
-      pass: (idx) -> passed++; result null, idx
-      fail: (idx, error) -> failed++; result error, idx
+      pass: (idx) -> passed++; result null, idx, elem
+      fail: (idx, error) -> failed++; result error, idx, elem
       finished: -> allResults null, passed, failed
       failed: (e)-> allResults e, 0, -1
 

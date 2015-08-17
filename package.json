@@ -1,16 +1,17 @@
 {
   "name": "@tutor/test-suite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The in app test-suite for Tutor.",
   "main": "lib/test_suite.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "browserify": "^11.0.1",
     "coffeeify": "^1.1.0",
     "gulp": "^3.9.0",
     "gulp-coffee": "^2.3.1",
+    "gulp-plumber": "^1.0.1",
     "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.4",
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
