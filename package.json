@@ -3,7 +3,9 @@
   "version": "0.1.1",
   "description": "The in app test-suite for Tutor.",
   "main": "lib/test_suite.js",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
   "devDependencies": {
     "browserify": "^11.0.1",
     "coffeeify": "^1.1.0",
