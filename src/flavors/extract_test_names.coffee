@@ -4,11 +4,12 @@ module.exports = (allTests, registerTest) ->
     tests = []
     runner.run """
       var it = function(name, fn) {
-        application.remote.registerTest(name);
+        registerTest(name);
       };
       #{code}
-      application.remote.finished();
-      """, 
-      registerTest: (name) -> tests.push name; registerTest? name, elem
-      finished: -> allTests? tests, elem
+      finished();
+      """,
+      remote:
+        registerTest: (name) -> tests.push name; registerTest? name, elem
+        finished: -> allTests? tests, elem
     return code
