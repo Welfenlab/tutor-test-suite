@@ -1,26 +1,28 @@
 
 
-module.exports = (result, allResults) ->
-  prepare: (code, runner) ->
-    """
-    var it = (function(){
-      var __it_index = 0;
-      return function(name, fn) {
-        try {
-          fn();
-          application.remote.pass(__it_index);
-        } catch (e) {
-          application.remote.fail(__it_index, {isException: true, exception: e});
-        }
-        __it_index++;
-      }
-    })();
-    #{code}
-    """
+module.exports = (callbacks) ->
   api: (code, runner, elem)->
     passed = 0
     failed = 0
-    pass: (idx) -> passed++; result null, idx, elem
-    fail: (idx, error) -> failed++; result error, idx, elem
-    finished: -> allResults null, passed, failed
-    failed: (e)-> allResults e, 0, -1
+    tests = []
+    remote:
+      registerTest: (name) -> tests.push name; callbacks.registerTest? name, elem
+      pass: (idx) -> passed++; callbacks.testResult null, idx, elem
+      fail: (idx, error) -> failed++; callbacks.testResult error, idx, elem
+      finished: -> callbacks.allResults null, passed, tests.length - passed
+      failed: (e)-> callbacks.allResults e, 0, tests.length
+    snippets:
+      it: """(function(){
+        var __it_index = 0;
+        return function(name, fn) {
+          registerTest(name);
+          try {
+            fn();
+            pass(__it_index);
+          } catch (e) {
+            fail(__it_index, {isException: true, exception: e});
+          }
+          __it_index++;
+        }
+      })()""";
+    
