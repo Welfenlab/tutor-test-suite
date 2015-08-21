@@ -10,4 +10,4 @@ module.exports =
       .pluck "content"
       .reduce concat, ""
       .value()
-    return testsCode + "\n" + code
+    return testsCode + "{};\n" + code
