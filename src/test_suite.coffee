@@ -14,3 +14,7 @@ module.exports =
         failed: (e)->
           console.log "error \"#{e}\" in "
           console.log code
+
+  # prepend a debbuger command to stop in sandbox
+  debugCode:
+    prepare: (code) -> "debugger;\n#{code}"
