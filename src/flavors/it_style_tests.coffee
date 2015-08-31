@@ -20,9 +20,13 @@ module.exports = (callbacks) ->
             fn();
             pass(__it_index);
           } catch (e) {
-            fail(__it_index, {isException: true, exception: e});
+            if(typeof e == "string")
+              fail(__it_index, {isException: true, exception: e});
+            else if (typeof(e.message) !== 'undefined')
+              fail(__it_index, {isException: true, exception: e.message});
+            else
+              fail(__it_index, {isException: true, exception: "unkown error"});
           }
           __it_index++;
         }
       })()""";
-    
