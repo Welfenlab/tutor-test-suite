@@ -15,17 +15,17 @@ module.exports = (callbacks) ->
       it: """(function(){
         var __it_index = 0;
         return function(name, fn) {
-          registerTest(name);
+          var __test_id__ = registerTest(name) || __it_index;
           try {
             fn();
-            pass(__it_index);
+            pass(__test_id__);
           } catch (e) {
             if(typeof e == "string")
-              fail(__it_index, {isException: true, exception: e});
+              fail(__test_id__, {isException: true, exception: e});
             else if (typeof(e.message) !== 'undefined')
-              fail(__it_index, {isException: true, exception: e.message});
+              fail(__test_id__, {isException: true, exception: e.message});
             else
-              fail(__it_index, {isException: true, exception: "unkown error"});
+              fail(__test_id__, {isException: true, exception: "unkown error"});
           }
           __it_index++;
         }
