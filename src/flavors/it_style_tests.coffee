@@ -18,14 +18,14 @@ module.exports = (callbacks) ->
           registerTest(name);
           try {
             fn();
-            pass(__it_index);
+            pass(name);
           } catch (e) {
             if(typeof e == "string")
-              fail(__it_index, {isException: true, exception: e});
+              fail(name, {isException: true, exception: e});
             else if (typeof(e.message) !== 'undefined')
-              fail(__it_index, {isException: true, exception: e.message});
+              fail(name, {isException: true, exception: e.message});
             else
-              fail(__it_index, {isException: true, exception: "unkown error"});
+              fail(name, {isException: true, exception: "unkown error"});
           }
           __it_index++;
         }
