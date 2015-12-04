@@ -9,7 +9,7 @@ module.exports = (callbacks) ->
       registerTest: (name) -> tests.push name; callbacks.registerTest? name, elem
       pass: (idx) -> passed++; callbacks.testResult null, idx, elem
       fail: (idx, error) -> failed++; callbacks.testResult error, idx, elem
-      finished: -> callbacks.allResults null, passed, tests.length - passed
+      finished: (error) -> callbacks.allResults error, passed, tests.length - passed
       failed: (e)-> callbacks.allResults e, 0, tests.length
     snippets:
       it: """(function(){
