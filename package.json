@@ -1,6 +1,6 @@
 {
   "name": "@tutor/test-suite",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "The in app test-suite for Tutor.",
   "main": "lib/test_suite.js",
   "dependencies": {
