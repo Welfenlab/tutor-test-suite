@@ -6,7 +6,7 @@ module.exports = (callbacks) ->
     failed = 0
     tests = []
     remote:
-      registerTest: (name) -> tests.push name; callbacks.registerTest? name, elem
+      registerTest: (name, code) -> tests.push name; callbacks.registerTest? {name: name, code: code}, elem
       pass: (idx) -> passed++; callbacks.testResult null, idx, elem
       fail: (idx, error) -> failed++; callbacks.testResult error, idx, elem
       finished: (error) -> callbacks.allResults error, passed, tests.length - passed
