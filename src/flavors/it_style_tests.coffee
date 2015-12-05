@@ -15,7 +15,7 @@ module.exports = (callbacks) ->
       it: """(function(){
         var __it_index = 0;
         return function(name, fn) {
-          registerTest(name, 'it("'+name+'", fn.toString() + ')';
+          registerTest(name, 'it("'+name+'" + fn.toString() + ')';
           try {
             fn();
             pass(name);
